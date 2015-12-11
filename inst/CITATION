@@ -1,0 +1,15 @@
+citHeader("Please cite the paper below for the dcGSA package")
+
+citEntry(entry="article",
+	author = c(person("Jiehuan","Sun"),
+	           person("Jose","Herazo-Maya"),
+	           person("Xiu","Huang"),
+	           person("Naftali","Kaminski"),
+	           person("Hongyu","Zhao")),
+	title = "Distance-correlation based Gene Set Analysis in Longitudinal Studies",
+	journal = "bioRxiv",
+	year = "2015",
+	textVersion =
+	"Jiehuan Sun, Jose Herazo-Maya, Xiu Huang, Naftali Kaminski, and Hongyu Zhao. (2015).
+	Distance-correlation based Gene Set Analysis in Longitudinal Studies."
+)

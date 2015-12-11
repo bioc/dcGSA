@@ -1,0 +1,28 @@
+Package: dcGSA
+Type: Package
+Title: Distance-correlation based Gene Set Analysis for longitudinal
+        gene expression profiles
+Version: 0.99.2
+Date: 2015-11-09
+Depends: R (>= 3.3), Matrix
+Imports: BiocParallel
+Suggests: knitr
+VignetteBuilder: knitr
+Author: Jiehuan Sun [aut, cre], Jose Herazo-Maya [aut], Xiu Huang
+        [aut], Naftali Kaminski [aut], and Hongyu Zhao [aut]
+Maintainer: Jiehuan sun <jiehuan.sun@yale.edu>
+Description: Distance-correlation based Gene Set Analysis for
+        longitudinal gene expression profiles. In longitudinal studies,
+        the gene expression profiles were collected at each visit from
+        each subject and hence there are multiple measurements of the
+        gene expression profiles for each subject. The dcGSA package
+        could be used to assess the associations between gene sets and
+        clinical outcomes of interest by fully taking advantage of the
+        longitudinal nature of both the gene expression profiles and
+        clinical outcomes.
+License: GPL-2
+LazyData: TRUE
+RoxygenNote: 5.0.1
+biocViews: GeneSetEnrichment,Microarray, StatisticalMethod, Sequencing,
+        RNASeq, GeneExpression
+NeedsCompilation: no
