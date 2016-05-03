@@ -2,7 +2,7 @@ Package: dcGSA
 Type: Package
 Title: Distance-correlation based Gene Set Analysis for longitudinal
         gene expression profiles
-Version: 0.99.2
+Version: 1.0.0
 Date: 2015-11-09
 Depends: R (>= 3.3), Matrix
 Imports: BiocParallel
