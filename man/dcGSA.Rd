@@ -4,7 +4,7 @@
 \alias{dcGSA}
 \title{Perform gene set analysis for longitudinal gene expression profiles.}
 \usage{
-dcGSA(data = NULL, geneset = NULL, nperm = 10, c = 0,
+dcGSA(data = NULL, geneset = NULL, nperm = 10, c = 0, KeepPerm=FALSE,
   parallel = FALSE, BPparam = MulticoreParam(workers = 4))
 }
 \arguments{
@@ -20,6 +20,11 @@ gene (a data frame with each column being one gene).}
 \item{c}{An integer cutoff value for the overlapping number of genes
 between the data and the gene set.}
 
+\item{KeepPerm}{A logical value indicating if the permutation statistics are
+         kept. If there are a large number of gene sets and the number of 
+         permutation is large, the matrix of the permutation statistics could
+         be large and memory demanding.}
+
 \item{parallel}{A logical value indicating if parallel computing is wanted.}
 
 \item{BPparam}{Parameters to configure parallel evaluation environments
@@ -28,7 +33,9 @@ machine. See \code{\link{BiocParallelParam}} object in Bioconductor
 package \code{BiocParallel} for more details.}
 }
 \value{
-returns a data frame with following columns.
+Returns a data frame with following columns, if KeepPerm=FALSE; otherwise, 
+returns a list with two objects: "res" object being the following data frame 
+and "stat" being  the permutation statistics.
 \item{Geneset}{Names for the gene sets.}
 \item{TotalSize}{The original size of each gene set.}
 \item{OverlapSize}{The overlapping number of genes between
@@ -38,7 +45,11 @@ returns a data frame with following columns.
 \item{NormScore}{Only available when permutation is performed.
       Normalized longitudinal distance covariance using the mean and
       standard deviation of permutated values.}
-\item{P}{Only available when permutation is performed. Permutation P values.}
+\item{P.perm}{Only available when permutation is performed. Permutation P 
+              values.}
+\item{P.approx}{P values obtained using normal distribution to approximate the 
+                null distribution.}
+
 }
 \description{
 Perform gene set analysis for longitudinal gene expression profiles.

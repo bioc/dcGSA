@@ -7,12 +7,18 @@
 #' @param nperm An integer number of permutations performed to get P values.
 #' @param c An integer cutoff value for the overlapping number of genes
 #'        between the data and the gene set.
+#' @param KeepPerm A logical value indicating if the permutation statistics are
+#'         kept. If there are a large number of gene sets and the number of 
+#'         permutation is large, the matrix of the permutation statistics could
+#'         be large and memory demanding.
 #' @param parallel A logical value indicating if parallel computing is wanted.
 #' @param BPparam Parameters to configure parallel evaluation environments
 #'         if parallel is TRUE. The default value is to use 4 cores in a single
 #'         machine. See \code{\link{BiocParallelParam}} object in Bioconductor
 #'         package \code{BiocParallel} for more details.
-#' @return returns a data frame with following columns.
+#' @return Returns a data frame with following columns, if KeepPerm=FALSE;
+#'         otherwise, returns a list with two objects: "res" object being the 
+#'         following data frame and "stat" being  the permutation statistics.
 #' \item{Geneset}{Names for the gene sets.}
 #' \item{TotalSize}{The original size of each gene set.}
 #' \item{OverlapSize}{The overlapping number of genes between
@@ -22,7 +28,10 @@
 #' \item{NormScore}{Only available when permutation is performed.
 #'       Normalized longitudinal distance covariance using the mean and
 #'       standard deviation of permutated values.}
-#' \item{P}{Only available when permutation is performed. Permutation P values.}
+#' \item{P.perm}{Only available when permutation is performed. Permutation P 
+#'               values.}
+#' \item{P.approx}{P values obtained using normal distribution to approximate 
+#'                 the null distribution.}
 #' @references Distance-correlation based Gene Set Analysis in Longitudinal
 #'             Studies. Jiehuan Sun, Jose Herazo-Maya, Xiu Huang,
 #'             Naftali Kaminski, and Hongyu Zhao.
@@ -33,7 +42,7 @@
 #' GS <- readGMT(file=fpath)
 #' system.time(res <- dcGSA(data=dcGSAtest,geneset=GS,nperm=100))
 #' head(res)
-dcGSA <- function(data=NULL,geneset=NULL,nperm=10,c=0,
+dcGSA <- function(data=NULL,geneset=NULL,nperm=10,c=0,KeepPerm=FALSE,
                   parallel=FALSE,BPparam = MulticoreParam(workers=4)){
 
   ord <- order(data$ID)
@@ -110,9 +119,13 @@ dcGSA <- function(data=NULL,geneset=NULL,nperm=10,c=0,
     norm.score <- (res$Stats-mean.per)/sd.per
 
     res <- data.frame(Geneset=names(geneset.list),TotalSize=totalsize,
-                      OverlapSize=size,Stats=stats,NormScore=norm.score,P=p.val)
-    res <- res[order(1-res$P,res$NormScore,decreasing = TRUE),]
+                      OverlapSize=size,Stats=stats,NormScore=norm.score,
+                      P.perm = p.val, P.approx = 1-pnorm(norm.score))
+    res <- res[order(res$NormScore,1-res$P.perm,decreasing = TRUE),]
     rownames(res) <- NULL
+    if(KeepPerm){
+        res = list(res=res,stat=res.per)
+    }
     res
   }else{
     res <- res[order(res$Stats,decreasing = TRUE),]
