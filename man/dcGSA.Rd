@@ -49,7 +49,7 @@ and "stat" being  the permutation statistics.
               values.}
 \item{P.approx}{P values obtained using normal distribution to approximate the 
                 null distribution.}
-
+\item{FDR.approx}{FDR based on the P.approx.}
 }
 \description{
 Perform gene set analysis for longitudinal gene expression profiles.

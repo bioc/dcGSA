@@ -32,6 +32,7 @@
 #'               values.}
 #' \item{P.approx}{P values obtained using normal distribution to approximate 
 #'                 the null distribution.}
+#' \item{FDR.approx}{FDR based on the P.approx.}
 #' @references Distance-correlation based Gene Set Analysis in Longitudinal
 #'             Studies. Jiehuan Sun, Jose Herazo-Maya, Xiu Huang,
 #'             Naftali Kaminski, and Hongyu Zhao.
@@ -120,7 +121,8 @@ dcGSA <- function(data=NULL,geneset=NULL,nperm=10,c=0,KeepPerm=FALSE,
 
     res <- data.frame(Geneset=names(geneset.list),TotalSize=totalsize,
                       OverlapSize=size,Stats=stats,NormScore=norm.score,
-                      P.perm = p.val, P.approx = 1-pnorm(norm.score))
+                      P.perm = p.val, P.approx = 1-pnorm(norm.score),
+                      FDR.approx = p.adjust(1-pnorm(norm.score),"fdr"))
     res <- res[order(res$NormScore,1-res$P.perm,decreasing = TRUE),]
     rownames(res) <- NULL
     if(KeepPerm){
