@@ -113,7 +113,7 @@ dcGSA <- function(data=NULL,geneset=NULL,nperm=10,c=0,KeepPerm=FALSE,
     }
 
     p.val <- sapply(seq_len(nrow(res.per)), function(i){
-      sum(abs(res.per[i,]) >= abs(res$Stats[i]) )/nperm
+      (sum(abs(res.per[i,]) >= abs(res$Stats[i])) + 1)/(nperm+1)
     })
     sd.per <- apply(res.per,1,sd)
     mean.per <- apply(res.per,1,mean)

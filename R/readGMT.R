@@ -10,6 +10,6 @@ readGMT <- function(file = NULL){
   geneset <- as.character(geneset[,1])
   geneset<- sapply(geneset,function(x){strsplit(x,split="\t")})
   names(geneset) <- sapply(geneset,function(x){x[1]})
-  geneset <- sapply(geneset,function(x){x[-(1:2)]})
+  geneset <- lapply(geneset,function(x){x[-(1:2)]})
   return(geneset)
 }
