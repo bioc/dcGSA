@@ -2,7 +2,7 @@ Package: dcGSA
 Type: Package
 Title: Distance-correlation based Gene Set Analysis for longitudinal
         gene expression profiles
-Version: 1.11.0
+Version: 1.11.1
 Date: 2016-11-01
 Depends: R (>= 3.3), Matrix
 Imports: BiocParallel
@@ -23,6 +23,6 @@ Description: Distance-correlation based Gene Set Analysis for
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
-biocViews: GeneSetEnrichment,Microarray, StatisticalMethod, Sequencing,
+biocViews: ImmunoOncology, GeneSetEnrichment,Microarray, StatisticalMethod, Sequencing,
         RNASeq, GeneExpression
 NeedsCompilation: no
